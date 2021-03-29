@@ -18,21 +18,15 @@ function init() {
 
     this.server.on('message', (message, rinfo) => {
         // turn buffer into a string
-        let buf = Buffer.from(message);
-        let a = '';
-        for(const value of buf.values()){
-            let v = value.toString(16);
-            let padding = 2;
-            if(v.length < padding){
-                v = "0" + v;
-            }
-            a += v;
-        }
-        console.log(Date());
-        console.log(`${a}`);
+        console.log(rinfo)
+        let buf = Buffer.from(message).toString();
+        if(buf.length < 1){return}
+        buf = buf.slice(2).slice(0, -2);
+        console.log('rinfo', rinfo)
+        console.log(buf);
     });
 
     this.server.bind({
-        port: 8090
+        port: 8091
     });
 }
